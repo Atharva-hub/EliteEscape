@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking | EliteEscape</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <style>
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(120, 16, 100, 0.14), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(255, 184, 107, 0.16), transparent 26%),
+                #f6f3f7;
+        }
+
+        .booking-page {
+            padding: 40px 20px 60px;
+        }
+
+        .booking-shell {
+            width: min(1080px, calc(100% - 20px));
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 0;
+            overflow: hidden;
+            border-radius: 30px;
+            box-shadow: 0 28px 70px rgba(17, 18, 26, 0.16);
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        .booking-hero,
+        .booking-card {
+            padding: clamp(28px, 4vw, 56px);
+        }
+
+        .booking-hero {
+            color: #fff;
+            background:
+                linear-gradient(180deg, rgba(9, 10, 14, 0.1), rgba(9, 10, 14, 0.82)),
+                url("./images/Maldives.jpeg") center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 18px;
+        }
+
+        .booking-label {
+            display: inline-flex;
+            width: fit-content;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .booking-hero h1 {
+            font-size: clamp(34px, 5vw, 56px);
+            line-height: 0.98;
+            letter-spacing: -0.03em;
+            max-width: 12ch;
+        }
+
+        .booking-hero p {
+            max-width: 42ch;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .booking-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .booking-highlights div {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(14px);
+        }
+
+        .booking-highlights strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 18px;
+        }
+
+        .booking-highlights span {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.84);
+        }
+
+        .booking-card h2 {
+            font-size: clamp(28px, 3.5vw, 38px);
+            line-height: 1.06;
+            color: #14151b;
+        }
+
+        .booking-card p {
+            margin-top: 10px;
+            color: #5e5f6a;
+            line-height: 1.7;
+        }
+
+        .booking-form {
+            display: grid;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .booking-form label {
+            display: grid;
+            gap: 8px;
+        }
+
+        .booking-form span {
+            font-size: 14px;
+            font-weight: 700;
+            color: #252631;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            border: 1px solid rgba(17, 18, 26, 0.12);
+            border-radius: 16px;
+            padding: 15px 16px;
+            font-size: 15px;
+            background: #fff;
+            color: #14151b;
+            outline: none;
+        }
+
+        .booking-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .booking-submit {
+            border: none;
+            border-radius: 16px;
+            padding: 15px 18px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #fff;
+            background: linear-gradient(135deg, rgb(120, 16, 100), rgb(162, 31, 87));
+            box-shadow: 0 16px 30px rgba(120, 16, 100, 0.22);
+        }
+
+        @media (max-width: 900px) {
+            .booking-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-hero {
+                min-height: 380px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .booking-page {
+                padding: 20px 14px 48px;
+            }
+
+            .booking-shell {
+                width: 100%;
+                border-radius: 24px;
+            }
+
+            .booking-hero,
+            .booking-card {
+                padding: 24px;
+            }
+
+            .booking-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EliteEscape</div>
+            <ul class="nav-links" id="primary-navigation">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="packages.html">Packages</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="btns">
+                <a class="btn" href="login.html">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="booking-page">
+        <section class="booking-shell">
+            <div class="booking-hero">
+                <span class="booking-label">Booking Request</span>
+                <h1>Complete your travel booking details.</h1>
+                <p>Share a few quick details and our team will follow up to finalize your trip.</p>
+
+                <div class="booking-highlights">
+                    <div>
+                        <strong>Fast</strong>
+                        <span>response time</span>
+                    </div>
+                    <div>
+                        <strong>Trusted</strong>
+                        <span>travel guidance</span>
+                    </div>
+                    <div>
+                        <strong>Secure</strong>
+                        <span>planning process</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <h2>Booking Form</h2>
+                <p>Tell us where you want to go and we will contact you shortly.</p>
+
+                <form class="booking-form">
+                    <label>
+                        <span>Full name</span>
+                        <input type="text" name="name" placeholder="Your full name" required>
+                    </label>
+
+                    <label>
+                        <span>Email address</span>
+                        <input type="email" name="email" placeholder="you@example.com" required>
+                    </label>
+
+                    <label>
+                        <span>Phone number</span>
+                        <input type="tel" name="phone" placeholder="+91 98765 43210" required>
+                    </label>
+
+                    <label>
+                        <span>Travel package</span>
+                        <select name="package" required>
+                            <option value="">Select a package</option>
+                            <option>Kashmir Paradise</option>
+                            <option>Kerala Backwaters</option>
+                            <option>Rajasthan Royal Tour</option>
+                            <option>Himachal Adventure</option>
+                            <option>Goa Beach Escape</option>
+                            <option>Uttarakhand Spiritual</option>
+                            <option>North East Explorer</option>
+                            <option>Andaman Islands</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Travel date</span>
+                        <input type="date" name="travel-date" required>
+                    </label>
+
+                    <label>
+                        <span>Additional notes</span>
+                        <textarea name="notes" placeholder="Share any special requests or questions..."></textarea>
+                    </label>
+
+                    <button type="submit" class="booking-submit">Submit Booking</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">EliteEscape</div>
+                <p>Premium travel experiences with curated packages, trusted support, and smooth trip planning.</p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Explore</h3>
+                <a href="index.html">Home</a>
+                <a href="destinations.html">Destinations</a>
+                <a href="packages.html">Packages</a>
+                <a href="about.html">About</a>
+            </div>
+
+            <div class="footer-links">
+                <h3>Support</h3>
+                <a href="#">FAQs</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+
+            <div class="footer-links">
+                <h3>Contact</h3>
+                <a href="tel:+919876543210">+91 9999 8888</a>
+                <a href="mailto:hello@eliteescape.com">hello@eliteescape.com</a>
+                <a href="#">Mumbai, India</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 EliteEscape. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

@@ -339,3 +339,71 @@ body{
     line-height: 1.7;
     font-size: 15px;
 }
+
+@media (max-width: 900px) {
+    .hero {
+        margin: 20px;
+        height: 60vh;
+    }
+
+    .hero h2 {
+        font-size: clamp(28px, 5vw, 40px);
+        text-align: center;
+    }
+
+    .video-section {
+        margin: 12px 20px;
+    }
+
+    .packages,
+    .faq {
+        width: calc(100% - 40px);
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        margin: 12px;
+        height: 48vh;
+        border-radius: 18px;
+    }
+
+    .hero h2 {
+        font-size: 26px;
+    }
+
+    .section-title {
+        padding: 8px 14px;
+    }
+
+    .section-title h1 {
+        font-size: 26px;
+        line-height: 1.15;
+    }
+
+    .card-container {
+        margin: 14px;
+        gap: 16px;
+    }
+
+    .video-section {
+        margin: 12px 12px 0;
+    }
+
+    .video-section video {
+        border-radius: 16px;
+    }
+
+    .packages,
+    .faq {
+        width: calc(100% - 24px);
+    }
+
+    .package-card .btn {
+        font-size: 14px;
+    }
+
+    .faq-container {
+        gap: 16px;
+    }
+}

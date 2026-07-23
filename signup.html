@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sign Up | EliteEscape</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/nav.css">
+	<link rel="stylesheet" href="./css/footer.css">
+	<link rel="stylesheet" href="./css/auth.css">
+</head>
+<body>
+	<header>
+		<nav>
+			<div class="logo">
+				EliteEscape
+			</div>
+			<ul class="nav-links" id="primary-navigation">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="destinations.html">Destinations</a></li>
+				<li><a href="packages.html">Packages</a></li>
+				<li><a href="about.html">About</a></li>
+			</ul>
+			<button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<div class="btns">
+				<a class="btn" href="login.html">Login</a>
+			</div>
+		</nav>
+	</header>
+
+	<main class="auth-page">
+		<section class="auth-shell auth-shell--signup">
+			<div class="auth-visual auth-visual--signup">
+				<span class="auth-label">Start Here</span>
+				<h1>Create your travel profile in minutes.</h1>
+				<p>Set up your account, save favorite destinations, and get faster access to curated packages designed around your style.</p>
+
+				<div class="auth-points">
+					<div>
+						<strong>Fast</strong>
+						<span>account setup</span>
+					</div>
+					<div>
+						<strong>Saved</strong>
+						<span>trip preferences</span>
+					</div>
+					<div>
+						<strong>Priority</strong>
+						<span>exclusive offers</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="auth-card">
+				<div class="auth-card-header">
+					<span class="auth-label auth-label--dark">Join EliteEscape</span>
+					<h2>Create your account</h2>
+					<p>Tell us a few details and we will personalize your travel planning experience.</p>
+				</div>
+
+				<form class="auth-form">
+					<label>
+						<span>Full name</span>
+						<input type="text" name="name" placeholder="Your full name" required>
+					</label>
+
+					<label>
+						<span>Email address</span>
+						<input type="email" name="email" placeholder="you@example.com" required>
+					</label>
+
+					<label>
+						<span>Phone number</span>
+						<input type="tel" name="phone" placeholder="+91 98765 43210" required>
+					</label>
+
+					<label>
+						<span>Password</span>
+						<input type="password" name="password" placeholder="Create a password" required>
+					</label>
+
+					<label>
+						<span>Confirm password</span>
+						<input type="password" name="confirm-password" placeholder="Confirm your password" required>
+					</label>
+
+					<label>
+						<span>Preferred destination style</span>
+						<select name="travel-style" required>
+							<option value="">Choose one</option>
+							<option value="beach">Beach escapes</option>
+							<option value="city">City breaks</option>
+							<option value="adventure">Adventure trips</option>
+							<option value="luxury">Luxury retreats</option>
+						</select>
+					</label>
+
+					<label class="auth-check auth-check--wide">
+						<input type="checkbox" name="offers" checked>
+						<span>Send me exclusive travel offers and package updates.</span>
+					</label>
+
+					<button type="submit" class="auth-submit">Create Account</button>
+
+					<p class="auth-switch">Already have an account? <a href="login.html">Sign in instead</a></p>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="footer-grid">
+			<div class="footer-brand">
+				<div class="footer-logo">EliteEscape</div>
+				<p>Premium travel experiences with curated packages, trusted support, and smooth trip planning.</p>
+			</div>
+
+			<div class="footer-links">
+				<h3>Explore</h3>
+				<a href="index.html">Home</a>
+				<a href="destinations.html">Destinations</a>
+				<a href="packages.html">Packages</a>
+				<a href="about.html">About</a>
+			</div>
+
+			<div class="footer-links">
+				<h3>Support</h3>
+				<a href="#">FAQs</a>
+				<a href="#">Contact Us</a>
+				<a href="#">Privacy Policy</a>
+				<a href="#">Terms & Conditions</a>
+			</div>
+
+			<div class="footer-links">
+				<h3>Contact</h3>
+				<a href="tel:+919876543210">+91 9999 8888</a>
+				<a href="mailto:hello@eliteescape.com">hello@eliteescape.com</a>
+				<a href="#">Mumbai, India</a>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<p>&copy; 2026 EliteEscape. All rights reserved.</p>
+		</div>
+	</footer>
+	<script src="./js/script.js"></script>
+</body>
+</html>
