@@ -1,207 +1,99 @@
+// Runs once the page has loaded
 document.addEventListener('DOMContentLoaded', () => {
-	initNavigation();
-	initBookingButtons();
-	initBookingForm();
-	initDestinationSearch();
-	initPackageFiltering();
+	setupNavigation();
+	setupBookingButtons();
+	setupBookingForm();
+	setupDestinationSearch();
+	setupPackageFilters();
 });
 
-const packageCategoryMap = {
-	'kashmir paradise': ['luxury'],
-	'kerala backwaters': ['romantic'],
-	'rajasthan royal tour': ['family'],
-	'himachal adventure': ['adventure'],
-	'goa beach escape': ['budget'],
-	'uttarakhand spiritual': ['family'],
-	'north east explorer': ['adventure'],
-	'andaman islands': ['luxury'],
+// Which category each package belongs to
+const packageCategories = {
+	'kashmir paradise': 'luxury',
+	'kerala backwaters': 'romantic',
+	'rajasthan royal tour': 'family',
+	'himachal adventure': 'adventure',
+	'goa beach escape': 'budget',
+	'uttarakhand spiritual': 'family',
+	'north east explorer': 'adventure',
+	'andaman islands': 'luxury',
 };
 
-function initNavigation() {
+// 1. Mobile menu open/close
+function setupNavigation() {
 	const nav = document.querySelector('nav');
 	const toggle = document.querySelector('.nav-toggle');
 	const navLinks = document.querySelector('.nav-links');
-
-	if (!nav || !toggle || !navLinks) {
-		return;
-	}
-
-	const closeMenu = () => {
-		nav.classList.remove('nav-open');
-		toggle.setAttribute('aria-expanded', 'false');
-	};
+	if (!nav || !toggle || !navLinks) return;
 
 	toggle.addEventListener('click', () => {
-		const isOpen = nav.classList.toggle('nav-open');
-		toggle.setAttribute('aria-expanded', String(isOpen));
+		nav.classList.toggle('nav-open');
 	});
 
+	// Close menu when a link is clicked
 	navLinks.querySelectorAll('a').forEach((link) => {
-		link.addEventListener('click', closeMenu);
+		link.addEventListener('click', () => nav.classList.remove('nav-open'));
 	});
+}
 
-	window.addEventListener('resize', () => {
-		if (window.innerWidth > 768) {
-			closeMenu();
+// 2. "Book Now" buttons send user to booking.html
+function setupBookingButtons() {
+	document.querySelectorAll('.book-now, button').forEach((button) => {
+		if (button.textContent.trim().toLowerCase() === 'book now' || button.classList.contains('book-now')) {
+			button.addEventListener('click', (event) => {
+				event.preventDefault();
+				window.location.href = 'booking.html';
+			});
 		}
 	});
 }
 
-function initBookingButtons() {
-	document.addEventListener('click', (event) => {
-		const clickedButton = event.target.closest('button');
+// 3. Booking form just shows a confirmation message
+function setupBookingForm() {
+	const form = document.querySelector('.booking-form');
+	if (!form) return;
 
-		if (!clickedButton) {
-			return;
-		}
-
-		const buttonLabel = clickedButton.textContent.trim().toLowerCase();
-		const isBookNowButton = clickedButton.classList.contains('book-now') || buttonLabel === 'book now';
-
-		if (!isBookNowButton) {
-			return;
-		}
-
-		event.preventDefault();
-		window.location.href = 'booking.html';
-	});
-}
-
-function initBookingForm() {
-	const bookingForm = document.querySelector('.booking-form');
-
-	if (!bookingForm) {
-		return;
-	}
-
-	bookingForm.addEventListener('submit', (event) => {
+	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		alert('You will be contacted by our executive');
-		bookingForm.reset();
+		form.reset();
 	});
 }
 
-function initDestinationSearch() {
+// 4. Search box filters destination cards by text
+function setupDestinationSearch() {
 	const searchInput = document.querySelector('#searchInput');
-	const searchButton = document.querySelector('.search-box button');
-	const destinationCards = Array.from(document.querySelectorAll('.destination-card'));
+	const cards = document.querySelectorAll('.destination-card');
+	if (!searchInput || !cards.length) return;
 
-	if (!searchInput || !destinationCards.length) {
-		return;
-	}
+	searchInput.addEventListener('input', () => {
+		const query = searchInput.value.trim().toLowerCase();
 
-	const updateResults = () => {
-		filterDestinationCards(destinationCards, searchInput.value);
-		updateDestinationStatus(destinationCards, searchInput.value);
-	};
-
-	searchInput.addEventListener('input', updateResults);
-
-	if (searchButton) {
-		searchButton.addEventListener('click', updateResults);
-	}
-
-	updateResults();
-}
-
-function initPackageFiltering() {
-	const packageCards = Array.from(document.querySelectorAll('.package-card'));
-	const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
-
-	if (!packageCards.length || !filterButtons.length) {
-		return;
-	}
-
-	const updatePackages = (category) => {
-		filterPackageCards(packageCards, category);
-		updatePackageStatus(packageCards, category);
-		setActiveFilterButton(filterButtons, category);
-	};
-
-	filterButtons.forEach((button) => {
-		button.addEventListener('click', () => {
-			updatePackages(button.textContent.trim());
+		cards.forEach((card) => {
+			const matches = card.textContent.toLowerCase().includes(query);
+			card.style.display = matches ? '' : 'none';
 		});
 	});
-
-	updatePackages('All Packages');
 }
 
-function filterDestinationCards(destinationCards, query) {
-	const normalizedQuery = query.trim().toLowerCase();
+// 5. Filter buttons show/hide package cards by category
+function setupPackageFilters() {
+	const cards = document.querySelectorAll('.package-card');
+	const buttons = document.querySelectorAll('.filter-btn');
+	if (!cards.length || !buttons.length) return;
 
-	destinationCards.forEach((card) => {
-		const cardText = card.textContent.toLowerCase();
-		const isVisible = !normalizedQuery || cardText.includes(normalizedQuery);
-		card.style.display = isVisible ? '' : 'none';
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			const category = button.textContent.trim().toLowerCase();
+
+			cards.forEach((card) => {
+				const title = card.querySelector('.package-content h3')?.textContent.trim().toLowerCase() || '';
+				const matches = category === 'all packages' || packageCategories[title] === category;
+				card.style.display = matches ? '' : 'none';
+			});
+
+			// Highlight the active button
+			buttons.forEach((b) => b.classList.toggle('active', b === button));
+		});
 	});
-}
-
-function updateDestinationStatus(destinationCards, query) {
-	const normalizedQuery = query.trim();
-	let statusElement = document.querySelector('.search-status');
-
-	if (!statusElement) {
-		statusElement = createStatusElement('search-status');
-		const searchContainer = document.querySelector('.search-container');
-		searchContainer?.insertAdjacentElement('afterend', statusElement);
-	}
-
-	const visibleCount = destinationCards.filter((card) => card.style.display !== 'none').length;
-
-	statusElement.textContent = normalizedQuery
-		? visibleCount
-			? `Showing ${visibleCount} destination${visibleCount === 1 ? '' : 's'} for "${normalizedQuery}".`
-			: `No destinations match "${normalizedQuery}".`
-		: `Showing all ${destinationCards.length} destinations.`;
-}
-
-function filterPackageCards(packageCards, category) {
-	const normalizedCategory = category.toLowerCase();
-
-	packageCards.forEach((card) => {
-		const title = card.querySelector('.package-content h3')?.textContent.trim().toLowerCase() || '';
-		const categories = packageCategoryMap[title] || [];
-		const matches = normalizedCategory === 'all packages' || categories.includes(normalizedCategory);
-		card.style.display = matches ? '' : 'none';
-	});
-}
-
-function updatePackageStatus(packageCards, category) {
-	const normalizedCategory = category.toLowerCase();
-	let statusElement = document.querySelector('.packages-status');
-
-	if (!statusElement) {
-		statusElement = createStatusElement('packages-status');
-		const filterSection = document.querySelector('.filter-section');
-		filterSection?.insertAdjacentElement('afterend', statusElement);
-	}
-
-	const visibleCount = packageCards.filter((card) => card.style.display !== 'none').length;
-
-	statusElement.textContent = normalizedCategory === 'all packages'
-		? `Showing all ${packageCards.length} packages.`
-		: visibleCount
-			? `Showing ${visibleCount} package${visibleCount === 1 ? '' : 's'} in ${normalizedCategory}.`
-			: `No packages found for ${normalizedCategory}.`;
-}
-
-function setActiveFilterButton(filterButtons, category) {
-	const normalizedCategory = category.toLowerCase();
-
-	filterButtons.forEach((button) => {
-		button.classList.toggle('active', button.textContent.trim().toLowerCase() === normalizedCategory);
-	});
-}
-
-function createStatusElement(className) {
-	const statusElement = document.createElement('p');
-	statusElement.className = className;
-	statusElement.setAttribute('aria-live', 'polite');
-	statusElement.style.margin = '0 auto 16px';
-	statusElement.style.width = 'min(1200px, calc(100% - 40px))';
-	statusElement.style.color = '#555';
-	statusElement.style.fontSize = '15px';
-	statusElement.style.textAlign = 'center';
-	return statusElement;
 }
