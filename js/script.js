@@ -5,7 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
 	setupBookingForm();
 	setupDestinationSearch();
 	setupPackageFilters();
+	login();
 });
+
+function login(){
+	// Login Function
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (email === "avedpathak60@gmail.com" && password === "080403") {
+        // Save login status
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userEmail", email);
+
+        // Redirect to home page
+        window.location.href = "index.html";
+    } else {
+        alert("Invalid email or password!");
+    }
+});
+}
+
+
 
 // Which category each package belongs to
 const packageCategories = {
@@ -19,7 +43,7 @@ const packageCategories = {
 	'andaman islands': 'luxury',
 };
 
-// 1. Mobile menu open/close
+
 function setupNavigation() {
 	const nav = document.querySelector('nav');
 	const toggle = document.querySelector('.nav-toggle');
@@ -30,13 +54,13 @@ function setupNavigation() {
 		nav.classList.toggle('nav-open');
 	});
 
-	// Close menu when a link is clicked
+
 	navLinks.querySelectorAll('a').forEach((link) => {
 		link.addEventListener('click', () => nav.classList.remove('nav-open'));
 	});
 }
 
-// 2. "Book Now" buttons send user to booking.html
+
 function setupBookingButtons() {
 	document.querySelectorAll('.book-now, button').forEach((button) => {
 		if (button.textContent.trim().toLowerCase() === 'book now' || button.classList.contains('book-now')) {
@@ -48,7 +72,6 @@ function setupBookingButtons() {
 	});
 }
 
-// 3. Booking form just shows a confirmation message
 function setupBookingForm() {
 	const form = document.querySelector('.booking-form');
 	if (!form) return;
@@ -60,7 +83,7 @@ function setupBookingForm() {
 	});
 }
 
-// 4. Search box filters destination cards by text
+
 function setupDestinationSearch() {
 	const searchInput = document.querySelector('#searchInput');
 	const cards = document.querySelectorAll('.destination-card');
@@ -76,7 +99,6 @@ function setupDestinationSearch() {
 	});
 }
 
-// 5. Filter buttons show/hide package cards by category
 function setupPackageFilters() {
 	const cards = document.querySelectorAll('.package-card');
 	const buttons = document.querySelectorAll('.filter-btn');
